@@ -1,11 +1,11 @@
 # Sorting Algorithm Visualizer
 
-![Sorting Visualizer](https://via.placeholder.com/800x400?text=Sorting+Algorithm+Visualizer)
+![Sorting Visualizer](https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer/blob/master/project/media/screen_Sortify.png)
 
 > Un'applicazione interattiva per visualizzare e comprendere il funzionamento degli algoritmi di ordinamento.
 
 ## **Descrizione**
-Sorting Algorithm Visualizer è uno strumento didattico progettato per aiutare gli utenti a esplorare diversi algoritmi di ordinamento. Grazie alla grafica dinamica e ai controlli interattivi, puoi osservare in tempo reale come i dati vengono ordinati.
+Sorting Algorithm Visualizer è uno strumento didattico progettato per esplorare e comprendere il funzionamento degli algoritmi di ordinamento attraverso visualizzazioni interattive. È ideale per studenti, sviluppatori e appassionati di informatica che vogliono approfondire il comportamento e le prestazioni degli algoritmi più utilizzati.
 
 ## **Caratteristiche**
 - Supporto per diversi algoritmi di ordinamento:
@@ -27,7 +27,7 @@ Segui questi semplici passi per eseguire il progetto in locale:
 
 1. **Clona la repository**
 ```bash
-  git clone https://github.com/username/Sorting-Algorithm-Visualizer.git
+  git clone https://github.com/Bernuz2003/Sorting-Algorithm-Visualizer.git
 ```
 
 2. **Apri il progetto in un editor**  
@@ -48,13 +48,8 @@ Segui questi semplici passi per eseguire il progetto in locale:
 
 ---
 
-## **Screenshot del Progetto**
-![Demo Screenshot](https://via.placeholder.com/800x400?text=Screenshot+del+Progetto)
-
----
-
 ## **Video Dimostrativo**
-*Aggiungi qui un link a un video o carica direttamente il video dimostrativo quando sarà disponibile.*
+<video controls src="https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer/blob/master/project/media/reg_Sortify.mp4" title="Sortify-demo"></video>
 
 ---
 
