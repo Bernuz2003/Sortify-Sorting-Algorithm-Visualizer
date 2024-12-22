@@ -49,6 +49,8 @@ Segui questi semplici passi per eseguire il progetto in locale:
 ---
 
 ## **Video Dimostrativo**
+[Guarda il video dimostrativo](https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer/blob/master/project/media/reg_Sortify.mp4)
+
 <video controls src="https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer/blob/master/project/media/reg_Sortify.mp4" title="Sortify-demo"></video>
 
 ---
