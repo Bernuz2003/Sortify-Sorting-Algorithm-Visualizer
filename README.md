@@ -44,7 +44,7 @@ Segui questi semplici passi per eseguire il progetto in locale:
 ```
 
 5. **Visualizza nel browser**  
-   Apri il link esposto nel terminale (di solito `http://localhost:3000`).
+   Apri il link esposto nel terminale.
 
 ---
 
