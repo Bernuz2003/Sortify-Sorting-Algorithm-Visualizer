@@ -66,11 +66,3 @@ Segui questi semplici passi per eseguire il progetto in locale:
 
 ---
 
-## **Licenza**
-Questo progetto è distribuito sotto licenza **MIT**.
-
----
-
-## **Contatti**
-Per qualsiasi domanda o suggerimento, contattami su GitHub oppure inviami una email.
-
