@@ -1,6 +1,6 @@
 # Sorting Algorithm Visualizer
 
-![Sorting Visualizer](https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer/blob/master/project/media/screen_Sortify.png)
+![Sorting Visualizer](https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer/blob/master/media/screen_Sortify.png)
 
 > Un'applicazione interattiva per visualizzare e comprendere il funzionamento degli algoritmi di ordinamento.
 
