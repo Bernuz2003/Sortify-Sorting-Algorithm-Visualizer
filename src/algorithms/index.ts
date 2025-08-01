@@ -305,9 +305,7 @@ export function* cocktailShakerSort(array: ArrayBar[]): Generator<ArrayBar[]> {
     }
 
     // Dopo la passata, possiamo considerare la posizione `end` già "in ordine"
-    // (nel Bubble Sort classico, l'elemento più grande 'sale' in ultima posizione).
-    // Se vuoi evidenziarlo come 'sorted' ad ogni passata, decommenta la riga seguente:
-    // array[end].state = 'sorted';
+    array[end].state = 'sorted';
     end--;
 
     // Se non ci sono stati scambi in questa passata, l’array è già ordinato
@@ -333,8 +331,7 @@ export function* cocktailShakerSort(array: ArrayBar[]): Generator<ArrayBar[]> {
     }
 
     // Anche `start` ormai ospita un valore correttamente piazzato (il più piccolo)
-    // Se vuoi evidenziarlo come 'sorted', decommenta la riga seguente:
-    // array[start].state = 'sorted';
+    array[start].state = 'sorted';
     start++;
   }
 
