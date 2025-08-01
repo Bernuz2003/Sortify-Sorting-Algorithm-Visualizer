@@ -1,65 +1,68 @@
-# Sorting Algorithm Visualizer
+# Sortify - Sorting Algorithm Visualizer
 
 ![Sorting Visualizer](https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer/blob/master/media/screen_Sortify.png)
 
-> Un'applicazione interattiva per visualizzare e comprendere il funzionamento degli algoritmi di ordinamento.
+Questo è un progetto web interattivo creato per visualizzare il funzionamento di vari algoritmi di ordinamento. L'applicazione permette agli utenti di generare un array di dati e osservare in tempo reale come gli algoritmi lo manipolano per ordinarlo, passo dopo passo.
 
-## **Descrizione**
-Sorting Algorithm Visualizer è uno strumento didattico progettato per esplorare e comprendere il funzionamento degli algoritmi di ordinamento attraverso visualizzazioni interattive. È ideale per studenti, sviluppatori e appassionati di informatica che vogliono approfondire il comportamento e le prestazioni degli algoritmi più utilizzati.
+## 📜 Descrizione
 
-## **Caratteristiche**
-- Supporto per diversi algoritmi di ordinamento:
-  - Bubble Sort
-  - Selection Sort
-  - Insertion Sort
-  - Merge Sort
-  - Quick Sort
-- Controlli personalizzati:
-  - Modifica velocità e dimensione delle barre.
-  - Pausa e ripresa dell'esecuzione.
-  - Selezione e avvio rapido di un algoritmo.
-- Grafica interattiva con rendering dinamico.
+Sortify è uno strumento educativo e dimostrativo che rende accessibile la comprensione di algoritmi di ordinamento complessi. Gli utenti possono:
+- **Generare** un array di dimensione e velocità personalizzate.
+- Scegliere tra diversi **algoritmi classici** di ordinamento.
+- **Avviare** la visualizzazione e osservare l'animazione che mostra gli scambi e i confronti tra gli elementi.
+- **Mettere in pausa** e riprendere l'esecuzione per analizzare passaggi specifici.
 
----
+L'interfaccia è stata progettata per essere intuitiva e reattiva, offrendo un'esperienza utente chiara e coinvolgente.
 
-## **Installazione e Avvio Locale**
-Segui questi semplici passi per eseguire il progetto in locale:
+## ✨ Caratteristiche
 
-1. **Clona la repository**
-```bash
-  git clone https://github.com/Bernuz2003/Sorting-Algorithm-Visualizer.git
-```
+- **Visualizzazione Animata**: Le animazioni mostrano passo dopo passo il processo di ordinamento di ogni algoritmo, aiutando a capirne la logica interna e le differenze di performance.
+- **Controlli Interattivi**: Pieno controllo sulla visualizzazione tramite slider per modificare la dimensione dell'array e la velocità dell'animazione.
+- **Algoritmi Multipli**: Supporto per i seguenti algoritmi:
+  - **Bubble Sort**: Un semplice algoritmo di ordinamento che scorre ripetutamente la lista, confronta elementi adiacenti e li scambia se sono nell'ordine sbagliato.
+  - **Selection Sort**: Un algoritmo che divide la lista in una sottolista ordinata e una non ordinata, e sposta iterativamente l'elemento minimo dalla parte non ordinata a quella ordinata.
+  - **Insertion Sort**: Costruisce l'array ordinato finale un elemento alla volta, inserendo ogni elemento nella sua posizione corretta.
+  - **Merge Sort**: Un efficiente algoritmo "divide et impera" che divide l'array in due metà, le ordina ricorsivamente e poi le fonde.
+  - **Quick Sort**: Un altro algoritmo "divide et impera" che sceglie un elemento "pivot" e partiziona gli altri elementi in due sotto-array, a seconda che siano minori o maggiori del pivot.
+- **Controlli di Esecuzione**: Possibilità di avviare, mettere in pausa e riprendere l'animazione in qualsiasi momento.
+- **Design Moderno e Responsivo**: L'interfaccia utente è pulita e si adatta per offrire la migliore esperienza visiva.
 
-2. **Apri il progetto in un editor**  
-   Consigliato: **Visual Studio Code**.
+## 🚀 Installazione ed Avvio Locale
 
-3. **Installa le dipendenze**
-```bash
-  npm install
-```
+Per eseguire il progetto in locale, segui questi passaggi:
 
-4. **Avvia il server di sviluppo**
-```bash
-  npm run dev
-```
+1.  **Clona la repository**
+    ```bash
+    git clone https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer.git
+    ```
 
-5. **Visualizza nel browser**  
-   Apri il link esposto nel terminale.
+2.  **Entra nella cartella del progetto**
+    ```bash
+    cd Sortify-Sorting-Algorithm-Visualizer
+    ```
 
----
+3.  **Installa le dipendenze**
+    Il progetto utilizza `npm` per la gestione dei pacchetti.
+    ```bash
+    npm install
+    ```
 
-## **Video Dimostrativo**
-[Guarda il video dimostrativo](https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer/blob/master/project/media/reg_Sortify.mp4)
+4.  **Avvia il server di sviluppo**
+    Questo comando avvierà l'applicazione in modalità sviluppo con Vite.
+    ```bash
+    npm run dev
+    ```
+    Apri il browser e naviga all'indirizzo indicato nel terminale (solitamente `http://localhost:5173`) per vedere l'applicazione in funzione.
 
-<video controls src="https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer/blob/master/project/media/reg_Sortify.mp4" title="Sortify-demo"></video>
+## 🎥 Video Dimostrativo
+[Guarda il video dimostrativo](https://github.com/Bernuz2003/Sortify-Sorting-Algorithm-Visualizer/blob/master/media/reg_Sortify.mp4)
 
----
+## 🛠️ Tecnologie Utilizzate
 
-## **Tecnologie Utilizzate**
-- **React** - Framework per lo sviluppo front-end.
-- **Styled Components** - Per la gestione del CSS.
-- **JavaScript (ES6)** - Linguaggio di programmazione.
-- **HTML5 & CSS3** - Struttura e stile.
-
----
+-   **Linguaggio**: [TypeScript](https://www.typescriptlang.org/)
+-   **Framework Frontend**: [React](https://reactjs.org/)
+-   **Build Tool**: [Vite](https://vitejs.dev/)
+-   **State Management**: React Hooks (`useState`, `useRef`) per la gestione dello stato.
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com/) per uno styling moderno e utility-first.
+-   **Linting**: [ESLint](https://eslint.org/) per il controllo della qualità del codice.
 
