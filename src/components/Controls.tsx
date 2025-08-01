@@ -1,81 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
-import styled from 'styled-components';
 import { Play, Square, RefreshCw } from 'lucide-react';
 import { SortingAlgorithm } from '../types';
-
-const ControlsContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background: ${({ theme }) => theme.colors.primary};
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  align-items: center;
-`;
-
-const Select = styled.select`
-  background: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.text};
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: 1px solid ${({ theme }) => theme.colors.accent};
-  cursor: pointer;
-`;
-
-const Slider = styled.input`
-  width: 150px;
-`;
-
-const NumberInput = styled.input`
-  width: 60px;
-  background: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.text};
-  padding: 0.4rem;
-  border: 1px solid ${({ theme }) => theme.colors.accent};
-  border-radius: 4px;
-  text-align: center;
-
-  /* Rimuove le freccette da Chrome, Safari, Edge, Opera */
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Rimuove le freccette da Firefox */
-  [type=number] {
-    -moz-appearance: textfield;
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-`;
-
-const Button = styled.button<{ variant?: 'primary' | 'secondary' }>`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  border: none;
-  background: ${({ theme, variant }) =>
-    variant === 'primary' ? theme.colors.accent : theme.colors.primary};
-  color: ${({ theme }) => theme.colors.text};
-  cursor: pointer;
-  transition: ${({ theme }) => theme.transitions.default};
-
-  &:hover {
-    opacity: 0.8;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-`;
+import styles from './Controls.module.css';
 
 interface ControlsProps {
   algorithm: SortingAlgorithm;
@@ -159,9 +85,10 @@ export const Controls: React.FC<ControlsProps> = ({
   }
 
   return (
-    <ControlsContainer>
+    <div className={styles.controlsContainer}>
       {/* ALGORITHM SELECT */}
-      <Select style={{ marginLeft: '20px', marginRight: '20px' }}
+      <select
+        className={`${styles.select} ${styles.wrapper}`}
         value={algorithm}
         onChange={handleAlgorithmSelect}
         disabled={isRunning}
@@ -172,15 +99,14 @@ export const Controls: React.FC<ControlsProps> = ({
         <option value="quick">Quick Sort</option>
         <option value="merge">Merge Sort</option>
         <option value="radix">Radix Sort</option>
-        <option value="shaker">Cocktail Shaker Sort</option>        
-
-      </Select>
+        <option value="shaker">Cocktail Shaker Sort</option>
+      </select>
 
       {/* SPEED */}
-      <div style={{ marginLeft: '30px', marginRight: '30px' }}>
-        <label>Delay: </label>
-        {/* Input numerico, disabilitato quando isRunning */}
-        <NumberInput
+      <div className={styles.wrapper}>
+        <label>Speed: </label>
+        <input
+          className={styles.numberInput}
           type="number"
           min="1"
           max="1000"
@@ -190,9 +116,8 @@ export const Controls: React.FC<ControlsProps> = ({
           onKeyDown={handleSpeedInputKeyDown}
           disabled={isRunning}
         />
-
-        {/* Slider, disabilitato quando isRunning */}
-        <Slider style={{ marginLeft: '20px', marginRight: '20px', width: '250px' }}
+        <input
+          className={styles.slider}
           type="range"
           min="1"
           max="500"
@@ -205,10 +130,10 @@ export const Controls: React.FC<ControlsProps> = ({
       </div>
 
       {/* SIZE */}
-      <div style={{ marginLeft: '30px', marginRight: '30px' }}>
+      <div className={styles.wrapper}>
         <label>Size: </label>
-        {/* Input numerico, disabilitato quando isRunning */}
-        <NumberInput
+        <input
+          className={styles.numberInput}
           type="number"
           min="5"
           max="300"
@@ -218,9 +143,8 @@ export const Controls: React.FC<ControlsProps> = ({
           onKeyDown={handleSizeInputKeyDown}
           disabled={isRunning}
         />
-
-        {/* Slider, disabilitato quando isRunning */}
-        <Slider style={{ marginLeft: '20px', marginRight: '20px', width: '250px' }}
+        <input
+          className={styles.slider}
           type="range"
           min="5"
           max="300"
@@ -233,16 +157,23 @@ export const Controls: React.FC<ControlsProps> = ({
       </div>
 
       {/* START/STOP BUTTON */}
-      <Button onClick={isRunning ? onStop : onStart} variant="primary">
+      <button
+        className={`${styles.button} ${styles.primary}`}
+        onClick={isRunning ? onStop : onStart}
+      >
         {isRunning ? <Square size={16} /> : <Play size={16} />}
         {isRunning ? 'Stop' : 'Start'}
-      </Button>
+      </button>
 
       {/* NEW ARRAY */}
-      <Button onClick={onGenerateNewArray} disabled={isRunning}>
+      <button
+        className={`${styles.button} ${styles.secondary}`}
+        onClick={onGenerateNewArray}
+        disabled={isRunning}
+      >
         <RefreshCw size={16} />
         New Array
-      </Button>
-    </ControlsContainer>
+      </button>
+    </div>
   );
 };

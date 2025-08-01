@@ -344,3 +344,5 @@ export function* cocktailShakerSort(array: ArrayBar[]): Generator<ArrayBar[]> {
   }
   yield array; // Yield finale per mostrare l’array interamente ordinato
 }
+
+export { cocktailShakerSort as shakerSort };

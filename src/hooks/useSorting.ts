@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useEffect } from 'react';
 import { ArrayBar, SortingAlgorithm } from '../types';
 import * as algorithms from '../algorithms';
 
@@ -9,27 +9,42 @@ export const useSorting = (
   setIsRunning: (isRunning: boolean) => void
 ) => {
   const isActiveRef = useRef(false);
+  const generatorRef = useRef<Generator<ArrayBar[]> | null>(null);
+  const algorithmRef = useRef<SortingAlgorithm | null>(null);
+  const speedRef = useRef(speed);
+
+  useEffect(() => {
+    speedRef.current = speed;
+  }, [speed]);
 
   const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
   const startSorting = useCallback(async (algorithm: SortingAlgorithm) => {
+    if (!generatorRef.current || algorithmRef.current !== algorithm) {
+      const sortFunction = algorithms[`${algorithm}Sort`] as (arr: ArrayBar[]) => Generator<ArrayBar[]>;
+      generatorRef.current = sortFunction([...array]);
+      algorithmRef.current = algorithm;
+    }
+
     isActiveRef.current = true;
     setIsRunning(true);
-    
-    const sortFunction = algorithms[`${algorithm}Sort`] as (arr: ArrayBar[]) => Generator<ArrayBar[]>;
-    const generator = sortFunction([...array]);
 
     try {
-      while (isActiveRef.current) {
-        const { value, done } = generator.next();
-        if (done) break;
+      while (isActiveRef.current && generatorRef.current) {
+        const { value, done } = generatorRef.current.next();
+        if (done) {
+          generatorRef.current = null;
+          break;
+        }
         setArray([...value]);
-        await sleep(speed);
+        const delay = Math.max(1, 1000 / speedRef.current);
+        await sleep(delay);
       }
     } finally {
+      isActiveRef.current = false;
       setIsRunning(false);
     }
-  }, [array, speed, setArray, setIsRunning]);
+  }, [array, setArray, setIsRunning]);
 
   const stopSorting = useCallback(() => {
     isActiveRef.current = false;
