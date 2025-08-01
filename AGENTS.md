@@ -30,19 +30,10 @@ La corretta implementazione degli algoritmi è il cuore del progetto.
 
 L'organizzazione del codice deve essere migliorata per favorire la manutenibilità.
 
-- **Separazione degli Stili**: Attualmente, lo stile è gestito principalmente con classi Tailwind CSS direttamente nel JSX.
-  - **Azione**: Estrai le classi Tailwind in file CSS dedicati per ogni componente (`.css` o `.module.css`). Utilizza la direttiva `@apply` di Tailwind per raggruppare le utility in classi semantiche.
-  - **Esempio**: Invece di `<div className="p-4 bg-blue-500 rounded">`, crea un file `Visualizer.css` con `.visualizer-container { @apply p-4 bg-blue-500 rounded; }` e usalo nel componente con `<div className="visualizer-container">`.
-  - **Obiettivo**: Rendere i file `.tsx` più puliti e leggibili, separando la logica dalla presentazione.
-
-### 4. Ottimizzazione delle Performance
-
-L'esperienza utente è compromessa da problemi di velocità e controllo.
-
-- **Migliora la Velocità di Esecuzione**: La velocità massima dell'animazione è troppo lenta.
-  - **Azione**: Rivedi la logica di `setTimeout` o del meccanismo di delay in `useSorting.ts`. Riduci drasticamente il delay minimo per la velocità massima, portandolo a un valore molto basso (es. 1-5 ms) per rendere l'animazione quasi istantanea.
-- **Correggi la Funzionalità di Pausa/Ripresa**: Attualmente, riprendendo l'esecuzione, l'algoritmo riparte da capo.
-  - **Azione**: Implementa una gestione dello stato che salvi l'indice corrente (o lo stato completo) dell'algoritmo quando viene messo in pausa. Al momento della ripresa, l'esecuzione deve continuare esattamente da dove si era interrotta, senza generare un nuovo array o riavviare l'ordinamento. Usa `useRef` per mantenere lo stato dell'iterazione tra i render.
+- **Separazione degli Stili**: Attualmente, lo stile è gestito con classi Tailwind CSS direttamente nel JSX o tramite file `.module.css`. L'obiettivo è di passare a file CSS standard per una separazione più netta.
+  - **Azione**: Per ogni componente, estrai le classi Tailwind in un file CSS standard dedicato (es. `Controls.css`, `Visualizer.css`).
+  - **Implementazione**: Invece di `<div className="p-4 bg-blue-500 rounded">`, crea una classe in `Visualizer.css` come `.visualizer-container { padding: 1rem; background-color: #3b82f6; border-radius: 0.25rem; }` e importa il file CSS nel componente (`import './Visualizer.css'`). Quindi, usa la classe nel JSX: `<div className="visualizer-container">`.
+  - **Obiettivo**: Rendere i file `.tsx` completamente puliti dalla logica di stile, separando la struttura (JSX) dalla presentazione (CSS).
 
 ---
 
@@ -72,3 +63,29 @@ Una volta completati i task fondamentali, considera le seguenti migliorie per ar
 
 - **Salvataggio delle Impostazioni Utente**:
   - Usa `localStorage` per salvare le preferenze dell'utente (es. velocità, dimensione dell'array, algoritmo selezionato) tra una sessione e l'altra.
+
+- **Modalità Confronto**:
+  - **Azione**: Implementare una modalità di confronto che permetta all'utente di selezionare due algoritmi diversi e visualizzarli mentre ordinano lo stesso array iniziale, fianco a fianco.
+  - **UI**:
+    - Aggiungere un interruttore o un pulsante per attivare/disattivare la modalità confronto.
+    - Quando attiva, l'interfaccia dei controlli dovrebbe mostrare due selettori di algoritmi.
+    - La `Visualizer` dovrebbe dividersi in due pannelli, ognuno dei quali mostra l'animazione per uno degli algoritmi selezionati.
+  - **Logica**:
+    - L'hook `useSorting` dovrà essere istanziato o modificato per gestire due processi di ordinamento indipendenti ma simultanei.
+    - Entrambi i visualizzatori dovrebbero partire dallo stesso array non ordinato.
+    - I controlli di velocità e dimensione dovrebbero applicarsi a entrambe le visualizzazioni.
+
+- **Pannello Informativo sugli Algoritmi**:
+  - **Azione**: Fornire informazioni dettagliate su ogni algoritmo per migliorare il valore didattico.
+  - **UI**:
+    - Aggiungere un'icona "info" (`(i)`) accanto al menu a tendina per la selezione dell'algoritmo.
+    - Cliccando sull'icona, si dovrebbe aprire un modale o un pannello a comparsa.
+  - **Contenuto**:
+    - Il pannello dovrebbe contenere:
+      - Una breve **descrizione** di come funziona l'algoritmo.
+      - La **complessità temporale** (Best, Average, Worst case) in notazione Big O (es. O(n²)).
+      - La **complessità spaziale** (es. O(1) per in-place, O(n) per merge sort).
+      - Una nota sui **casi d'uso ideali** o sulle sue caratteristiche (es. "Stabile", "Adattivo").
+  - **Implementazione**:
+    - Creare una struttura dati (es. un oggetto o una mappa in un file `algorithms/info.ts`) che associ ogni nome di algoritmo (`'bubble'`, `'quick'`, ecc.) alle informazioni corrispondenti.
+    - Il componente `Controls` recupererà e visualizzerà queste informazioni quando l'utente lo richiede.

@@ -2,7 +2,7 @@ import { ArrayBar } from '../types';
 
 export function* bubbleSort(array: ArrayBar[]) {
   const n = array.length;
-  
+
   for (let i = 0; i < n - 1; i++) {
     for (let j = 0; j < n - i - 1; j++) {
       array[j].state = 'active';
@@ -52,11 +52,11 @@ export function* selectionSort(array: ArrayBar[]) {
   for (let i = 0; i < array.length - 1; i++) {
     let minIdx = i;
     array[i].state = 'active';
-    
+
     for (let j = i + 1; j < array.length; j++) {
       array[j].state = 'active';
       yield array;
-      
+
       if (array[j].value < array[minIdx].value) {
         array[minIdx].state = 'default';
         minIdx = j;
@@ -69,7 +69,7 @@ export function* selectionSort(array: ArrayBar[]) {
       [array[i], array[minIdx]] = [array[minIdx], array[i]];
       yield array;
     }
-    
+
     array[i].state = 'sorted';
   }
   array[array.length - 1].state = 'sorted';
@@ -234,29 +234,29 @@ function* merge(
 export function* radixSort(array: ArrayBar[]): Generator<ArrayBar[]> {
   // Trova il valore massimo nell'array (necessario per sapere quante "cifre" gestire)
   const maxVal = Math.max(...array.map((bar) => bar.value));
-  
+
   // exp rappresenta il fattore moltiplicativo per accedere alla cifra di interesse
   // (unità, decine, centinaia, ecc.)
   for (let exp = 1; Math.floor(maxVal / exp) > 0; exp *= 10) {
     // Creiamo 10 "bucket", uno per ciascuna cifra da 0 a 9
     const buckets: ArrayBar[][] = Array.from({ length: 10 }, () => []);
-    
+
     // Distribuiamo gli elementi nei rispettivi bucket in base alla cifra corrente
     for (let i = 0; i < array.length; i++) {
       // Segna l'elemento come attivo
       array[i].state = 'active';
-      yield array; 
-      
+      yield array;
+
       // Estrae la cifra corrispondente per exp
       const digit = Math.floor((array[i].value / exp) % 10);
-      
+
       // Inserisce l'elemento nel bucket corrispondente
       buckets[digit].push(array[i]);
-      
+
       // Reimposta lo stato a default
       array[i].state = 'default';
     }
-    
+
     // Ricompone l'array prendendo gli elementi dai bucket in ordine
     let index = 0;
     for (let b = 0; b < 10; b++) {
@@ -305,9 +305,7 @@ export function* cocktailShakerSort(array: ArrayBar[]): Generator<ArrayBar[]> {
     }
 
     // Dopo la passata, possiamo considerare la posizione `end` già "in ordine"
-    // (nel Bubble Sort classico, l'elemento più grande 'sale' in ultima posizione).
-    // Se vuoi evidenziarlo come 'sorted' ad ogni passata, decommenta la riga seguente:
-    // array[end].state = 'sorted';
+    array[end].state = 'sorted';
     end--;
 
     // Se non ci sono stati scambi in questa passata, l’array è già ordinato
@@ -333,8 +331,7 @@ export function* cocktailShakerSort(array: ArrayBar[]): Generator<ArrayBar[]> {
     }
 
     // Anche `start` ormai ospita un valore correttamente piazzato (il più piccolo)
-    // Se vuoi evidenziarlo come 'sorted', decommenta la riga seguente:
-    // array[start].state = 'sorted';
+    array[start].state = 'sorted';
     start++;
   }
 
