@@ -18,8 +18,8 @@ export const theme = {
 export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    background: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.text};
+    background: ${theme.colors.background};
+    color: ${theme.colors.text};
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }

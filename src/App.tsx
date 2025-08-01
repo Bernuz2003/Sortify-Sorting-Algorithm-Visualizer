@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Controls } from './components/Controls';
 import { Visualizer } from './components/Visualizer';
