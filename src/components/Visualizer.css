@@ -1,0 +1,38 @@
+.visualizer-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  background-color: #2d2d2d;
+  height: calc(100vh - 200px);
+}
+
+.panel {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.bar {
+  flex: 1;
+  min-width: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+.bar.default {
+  background-color: #ffffff;
+}
+
+.bar.active {
+  background-color: #ef4444;
+}
+
+.bar.sorted {
+  background-color: #4caf50;
+}
+
+.comparison .panel {
+  width: 50%;
+}

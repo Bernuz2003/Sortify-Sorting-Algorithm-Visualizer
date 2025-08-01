@@ -1,14 +1,20 @@
-import React, { useState, ChangeEvent } from 'react';
+import type { FC, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { Play, Square, RefreshCw } from 'lucide-react';
 import { SortingAlgorithm } from '../types';
-import styles from './Controls.module.css';
+import { InfoPanel } from './InfoPanel';
+import './Controls.css';
 
 interface ControlsProps {
-  algorithm: SortingAlgorithm;
-  speed: number;       // Stato "globale" da App
-  size: number;        // Stato "globale" da App
+  algorithm1: SortingAlgorithm;
+  algorithm2: SortingAlgorithm;
+  isComparisonMode: boolean;
+  speed: number;
+  size: number;
   isRunning: boolean;
-  onAlgorithmChange: (algorithm: SortingAlgorithm) => void;
+  onAlgorithm1Change: (algorithm: SortingAlgorithm) => void;
+  onAlgorithm2Change: (algorithm: SortingAlgorithm) => void;
+  onToggleComparisonMode: (value: boolean) => void;
   onSpeedChange: (speed: number) => void;
   onSizeChange: (size: number) => void;
   onStart: () => void;
@@ -16,12 +22,16 @@ interface ControlsProps {
   onGenerateNewArray: () => void;
 }
 
-export const Controls: React.FC<ControlsProps> = ({
-  algorithm,
+export const Controls: FC<ControlsProps> = ({
+  algorithm1,
+  algorithm2,
+  isComparisonMode,
   speed,
   size,
   isRunning,
-  onAlgorithmChange,
+  onAlgorithm1Change,
+  onAlgorithm2Change,
+  onToggleComparisonMode,
   onSpeedChange,
   onSizeChange,
   onStart,
@@ -31,19 +41,31 @@ export const Controls: React.FC<ControlsProps> = ({
   // Stati "locali" per slider/input, così evitiamo di rigenerare array di continuo.
   const [localSpeed, setLocalSpeed] = useState(speed);
   const [localSize, setLocalSize] = useState(size);
+  const [showInfo, setShowInfo] = useState<SortingAlgorithm | null>(null);
 
   // Se il valore globale cambia per qualche motivo (reset?), aggiorniamo i locali:
-  React.useEffect(() => {
+  useEffect(() => {
     setLocalSpeed(speed);
   }, [speed]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setLocalSize(size);
   }, [size]);
 
-  // HANDLER ALGORITMO
-  function handleAlgorithmSelect(e: React.ChangeEvent<HTMLSelectElement>) {
-    onAlgorithmChange(e.target.value as SortingAlgorithm);
+  // HANDLER ALGORITHM
+  function handleAlgorithm1Select(e: ChangeEvent<HTMLSelectElement>) {
+    onAlgorithm1Change(e.target.value as SortingAlgorithm);
+  }
+  function handleAlgorithm2Select(e: ChangeEvent<HTMLSelectElement>) {
+    onAlgorithm2Change(e.target.value as SortingAlgorithm);
+  }
+
+  function openInfoPanel(algo: SortingAlgorithm) {
+    setShowInfo(algo);
+  }
+
+  function closeInfoPanel() {
+    setShowInfo(null);
   }
 
   // HANDLER SPEED
@@ -59,7 +81,7 @@ export const Controls: React.FC<ControlsProps> = ({
   function handleSpeedInputBlur() {
     onSpeedChange(localSpeed);
   }
-  function handleSpeedInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  function handleSpeedInputKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
       (e.target as HTMLInputElement).blur();
     }
@@ -78,35 +100,71 @@ export const Controls: React.FC<ControlsProps> = ({
   function handleSizeInputBlur() {
     onSizeChange(localSize);
   }
-  function handleSizeInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  function handleSizeInputKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
       (e.target as HTMLInputElement).blur();
     }
   }
 
   return (
-    <div className={styles.controlsContainer}>
-      {/* ALGORITHM SELECT */}
-      <select
-        className={`${styles.select} ${styles.wrapper}`}
-        value={algorithm}
-        onChange={handleAlgorithmSelect}
-        disabled={isRunning}
-      >
-        <option value="bubble">Bubble Sort</option>
-        <option value="insertion">Insertion Sort</option>
-        <option value="selection">Selection Sort</option>
-        <option value="quick">Quick Sort</option>
-        <option value="merge">Merge Sort</option>
-        <option value="radix">Radix Sort</option>
-        <option value="shaker">Cocktail Shaker Sort</option>
-      </select>
+    <div className="controls-container">
+      <label className="toggle">
+        <input
+          type="checkbox"
+          checked={isComparisonMode}
+          onChange={(e) => onToggleComparisonMode(e.target.checked)}
+          disabled={isRunning}
+        />
+        Comparison Mode
+      </label>
+
+      <div className="wrapper">
+        <select
+          className="select"
+          value={algorithm1}
+          onChange={handleAlgorithm1Select}
+          disabled={isRunning}
+        >
+          <option value="bubble">Bubble Sort</option>
+          <option value="insertion">Insertion Sort</option>
+          <option value="selection">Selection Sort</option>
+          <option value="quick">Quick Sort</option>
+          <option value="merge">Merge Sort</option>
+          <option value="radix">Radix Sort</option>
+          <option value="shaker">Cocktail Shaker Sort</option>
+        </select>
+        <span className="info-icon" onClick={() => openInfoPanel(algorithm1)}>
+          ℹ️
+        </span>
+      </div>
+
+      {isComparisonMode && (
+        <div className="wrapper">
+          <select
+            className="select"
+            value={algorithm2}
+            onChange={handleAlgorithm2Select}
+            disabled={isRunning}
+          >
+            <option value="bubble">Bubble Sort</option>
+            <option value="insertion">Insertion Sort</option>
+            <option value="selection">Selection Sort</option>
+            <option value="quick">Quick Sort</option>
+            <option value="merge">Merge Sort</option>
+            <option value="radix">Radix Sort</option>
+            <option value="shaker">Cocktail Shaker Sort</option>
+          </select>
+          <span className="info-icon" onClick={() => openInfoPanel(algorithm2)}>
+            ℹ️
+          </span>
+        </div>
+      )}
 
       {/* SPEED */}
-      <div className={styles.wrapper}>
+      <div className="wrapper">
         <label>Speed: </label>
         <input
-          className={styles.numberInput}
+          className="number-input"
           type="number"
           min="1"
           max="1000"
@@ -117,7 +175,7 @@ export const Controls: React.FC<ControlsProps> = ({
           disabled={isRunning}
         />
         <input
-          className={styles.slider}
+          className="slider"
           type="range"
           min="1"
           max="500"
@@ -130,10 +188,10 @@ export const Controls: React.FC<ControlsProps> = ({
       </div>
 
       {/* SIZE */}
-      <div className={styles.wrapper}>
+      <div className="wrapper">
         <label>Size: </label>
         <input
-          className={styles.numberInput}
+          className="number-input"
           type="number"
           min="5"
           max="500"
@@ -144,7 +202,7 @@ export const Controls: React.FC<ControlsProps> = ({
           disabled={isRunning}
         />
         <input
-          className={styles.slider}
+          className="slider"
           type="range"
           min="5"
           max="500"
@@ -158,7 +216,7 @@ export const Controls: React.FC<ControlsProps> = ({
 
       {/* START/STOP BUTTON */}
       <button
-        className={`${styles.button} ${styles.primary}`}
+        className={`button primary`}
         onClick={isRunning ? onStop : onStart}
       >
         {isRunning ? <Square size={16} /> : <Play size={16} />}
@@ -167,13 +225,16 @@ export const Controls: React.FC<ControlsProps> = ({
 
       {/* NEW ARRAY */}
       <button
-        className={`${styles.button} ${styles.secondary}`}
+        className={`button secondary`}
         onClick={onGenerateNewArray}
         disabled={isRunning}
       >
         <RefreshCw size={16} />
         New Array
       </button>
+      {showInfo && (
+        <InfoPanel algorithm={showInfo} onClose={closeInfoPanel} />
+      )}
     </div>
   );
 };

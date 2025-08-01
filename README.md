@@ -63,6 +63,6 @@ Per eseguire il progetto in locale, segui questi passaggi:
 -   **Framework Frontend**: [React](https://reactjs.org/)
 -   **Build Tool**: [Vite](https://vitejs.dev/)
 -   **State Management**: React Hooks (`useState`, `useRef`) per la gestione dello stato.
--   **Styling**: [Tailwind CSS](https://tailwindcss.com/) per uno styling moderno e utility-first.
+-   **Styling**: CSS tradizionale importato nei componenti.
 -   **Linting**: [ESLint](https://eslint.org/) per il controllo della qualità del codice.
 
